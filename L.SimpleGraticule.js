@@ -50,6 +50,17 @@ L.SimpleGraticule = L.LayerGroup.extend({
     },
 
     getLineCounts: function() {
+		if (this._map.getZoom() <= 5) {
+			this.options.interval = 20 ;
+		} else if (this._map.getZoom() <=7) {
+			this.options.interval = 2 ;
+		} else if (this._map.getZoom() <= 9) {
+			this.options.interval = 1 ;
+		} else if (this._map.getZoom() <= 14) {
+			this.options.interval = 1/60 ; //shows minutes interval
+		} else if (this._map.getZoom() > 15) {
+			this.options.interval = 1/3600 ; //shows seconds interval
+		}
         return {
             x: Math.ceil((this._bounds.getEast() - this._bounds.getWest()) /
                 this.options.interval),
